@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   ShieldAlert,
   Search,
@@ -98,7 +99,7 @@ export default function App() {
         </div>
       </header>
 
-      <section className="search-panel no-print" aria-label="Address investigation">
+      <section className="glass-panel search-panel no-print" aria-label="Address investigation">
         <form className="search-form" onSubmit={handleSubmit}>
           <select
             className="select"
@@ -143,8 +144,14 @@ export default function App() {
 
       {report && (
         <>
-          <section className="grid-4" aria-label="KYT Risk Summary">
-            <div className="card">
+          <motion.section
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="grid-4"
+            aria-label="KYT Risk Summary"
+          >
+            <div className="glass-panel card">
               <div className="card-label">AML / KYT Risk Score</div>
               <div className={`card-value ${tierClass}`}>
                 {report.kyt.score} / 100
@@ -152,7 +159,7 @@ export default function App() {
               <div className="card-sub">{report.kyt.riskTier} &bull; {report.chainName}</div>
             </div>
 
-            <div className="card">
+            <div className="glass-panel card">
               <div className="card-label">Native Balance</div>
               <div className="card-value">
                 {report.balanceNative.toFixed(4)} {report.symbol}
@@ -162,7 +169,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="card">
+            <div className="glass-panel card">
               <div className="card-label">Sampled Flow (In / Out)</div>
               <div className="card-value">
                 {report.kyt.metrics.incomingCount} IN / {report.kyt.metrics.outgoingCount} OUT
@@ -172,7 +179,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="card">
+            <div className="glass-panel card">
               <div className="card-label">Compliance Actions</div>
               <div style={{ display: 'flex', gap: '8px', marginTop: '10px', flexWrap: 'wrap' }}>
                 <button type="button" className="btn btn-secondary" onClick={exportJson}>
@@ -184,10 +191,15 @@ export default function App() {
               </div>
               <div className="card-sub">Source: {report.source}</div>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="grid-2">
-            <div className="card">
+          <motion.section
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.08 }}
+            className="grid-2"
+          >
+            <div className="glass-panel card">
               <div className="card-label">Triggered KYT &amp; Red-Flag Rules</div>
               <div className="flag-list">
                 {report.kyt.flags.map((f) => (
@@ -202,7 +214,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="card">
+            <div className="glass-panel card">
               <div className="card-label">Asset Recovery &amp; Analyst Case Notes</div>
               <p style={{ fontSize: '0.84rem', color: '#94a3b8', marginTop: '8px' }}>
                 Document investigation findings, freeze/escalation decisions, and counterparty attribution for compliance audit trails.
@@ -219,9 +231,9 @@ export default function App() {
                 Investigated at: <span className="mono">{report.investigatedAt}</span>
               </div>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="card">
+          <section className="glass-panel card">
             <div className="card-label">Recent On-Chain Transactions &amp; Counterparty Trace</div>
             <div className="table-wrap">
               <table>
